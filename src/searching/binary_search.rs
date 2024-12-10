@@ -1,27 +1,24 @@
-//! This module provides an implementation of a binary search algorithm that
-//! works for both ascending and descending ordered arrays. The binary search
-//! function returns the index of the target element if it is found, or `None`
-//! if the target is not present in the array.
+//! 这个模块提供了一个二分查找算法的实现，可以同时处理升序和降序排列的数组。
+//! 二分查找函数在找到目标元素时返回其索引，如果目标不在数组中则返回 `None`。
 
 use std::cmp::Ordering;
 
-/// Performs a binary search for a specified item within a sorted array.
+/// 在已排序的数组中执行二分查找。
 ///
-/// This function can handle both ascending and descending ordered arrays. It
-/// takes a reference to the item to search for and a slice of the array. If
-/// the item is found, it returns the index of the item within the array. If
-/// the item is not found, it returns `None`.
+/// 这个函数可以处理升序和降序排列的数组。它接收一个要搜索的目标值的引用
+/// 和一个数组切片作为参数。如果找到目标值，则返回该值在数组中的索引。
+/// 如果未找到目标值，则返回 `None`。
 ///
-/// # Parameters
+/// # 参数
 ///
-/// - `item`: A reference to the item to search for.
-/// - `arr`: A slice of the sorted array in which to search.
+/// - `item`: 要搜索的目标值的引用
+/// - `arr`: 已排序数组的切片
 ///
-/// # Returns
+/// # 返回值
 ///
-/// An `Option<usize>` which is:
-/// - `Some(index)` if the item is found at the given index.
-/// - `None` if the item is not found in the array.
+/// 返回 `Option<usize>` 类型：
+/// - 如果找到目标值，返回 `Some(index)`，其中 index 为目标值的索引
+/// - 如果未找到目标值，返回 `None`
 pub fn binary_search<T: Ord>(item: &T, arr: &[T]) -> Option<usize> {
     let is_asc = is_asc_arr(arr);
 
@@ -37,25 +34,25 @@ pub fn binary_search<T: Ord>(item: &T, arr: &[T]) -> Option<usize> {
     None
 }
 
-/// Compares the item with the middle element of the current search range and
-/// updates the search bounds accordingly. This function handles both ascending
-/// and descending ordered arrays. It calculates the middle index of the
-/// current search range and compares the item with the element at
-/// this index. It then updates the search bounds (`left` and `right`) based on
-/// the result of this comparison. If the item is found, it updates `left` to
-/// the index of the found item and returns `true`.
+/// 将目标值与当前搜索范围的中间元素进行比较，并相应地更新搜索边界。
+/// 这个函数可以处理升序和降序排列的数组。它计算当前搜索范围的中间索引，
+/// 并将目标值与该位置的元素进行比较。然后根据比较结果更新搜索边界
+/// （`left` 和 `right`）。如果找到目标值，它会将 `left` 更新为找到的
+/// 项的索引并返回 `true`。
 ///
-/// # Parameters
+/// # 参数
 ///
-/// - `item`: A reference to the item to search for.
-/// - `arr`: A slice of the array in which to search.
-/// - `left`: A mutable reference to the left bound of the search range.
-/// - `right`: A mutable reference to the right bound of the search range.
-/// - `is_asc`: A boolean indicating whether the array is sorted in ascending order.
+/// - `item`: 要搜索的目标值的引用
+/// - `arr`: 要搜索的数组切片
+/// - `left`: 左边界的可变引用
+/// - `right`: 右边界的可变引用
+/// - `is_asc`: 布尔值，表示数组是否按升序排列
 ///
-/// # Returns
+/// # 返回值
 ///
-/// A `bool` indicating whether the item was found.
+/// 返回 `bool` 类型：
+/// - 如果找到目标值，返回 `true`
+/// - 如果未找到目标值，返回 `false`
 fn match_compare<T: Ord>(
     item: &T,
     arr: &[T],
@@ -82,19 +79,18 @@ fn match_compare<T: Ord>(
     false
 }
 
-/// Determines if the given array is sorted in ascending order.
+/// 判断给定数组是否按升序排列。
 ///
-/// This helper function checks if the first element of the array is less than the
-/// last element, indicating an ascending order. It returns `false` if the array
-/// has fewer than two elements.
+/// 这个辅助函数通过检查数组的第一个元素是否小于最后一个元素来判断
+/// 是否为升序排列。如果数组长度小于2，则返回 `false`。
 ///
-/// # Parameters
+/// # 参数
 ///
-/// - `arr`: A slice of the array to check.
+/// - `arr`: 要检查的数组切片
 ///
-/// # Returns
+/// # 返回值
 ///
-/// A `bool` indicating whether the array is sorted in ascending order.
+/// 返回 `bool` 类型，表示数组是否按升序排列
 fn is_asc_arr<T: Ord>(arr: &[T]) -> bool {
     arr.len() > 1 && arr[0] < arr[arr.len() - 1]
 }
